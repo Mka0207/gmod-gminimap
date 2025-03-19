@@ -87,6 +87,13 @@ local function GetColor( ply, state )
     return colors.default
 end
 
+local function GetZSColor( ply, state )
+    if ply:Team() == TEAM_UNDEAD and ply:IsBoss() then
+        return Color(255,225,1)
+    end
+    return team.GetColor(ply:Team())
+end
+
 local IsValid = IsValid
 local LocalPlayer = LocalPlayer
 
@@ -95,6 +102,7 @@ local cvarMaxDist = GetConVar( "gminimap_player_blips_max_distance" )
 local playerBlips = GMinimap.playerBlips or {}
 
 GMinimap.playerBlips = playerBlips
+GMinimap.sameTeamOnly = true
 
 timer.Create( "GMinimap.UpdatePlayerBlips", 0.1, 0, function()
     local localPly = LocalPlayer()
@@ -170,7 +178,7 @@ timer.Create( "GMinimap.UpdatePlayerBlips", 0.1, 0, function()
             b.lockIconAng = lockAng and ( state ~= "localplayer" )
 
             b.icon = icon
-            b.color = GetColor( ply, state )
+            b.color = GAMEMODE_NAME == "zombiesurvival" and GetZSColor( ply, state ) or GetColor( ply, state )
             b.scale = scale or 0.9
             b.alpha = alpha * 255
         else

@@ -50,6 +50,7 @@ function GMinimap:AddBlip( params )
     CheckOptionalType( params.indicateAlt, "indicateAlt", "boolean" )
     CheckOptionalType( params.indicateAng, "indicateAng", "boolean" )
     CheckOptionalType( params.lockIconAng, "lockIconAng", "boolean" )
+    CheckOptionalType( params.teamID, "teamID", "number" )
 
     CheckOptionalType( params.icon, "icon", "string" )
     CheckOptionalType( params.alpha, "alpha", "number" )
@@ -68,6 +69,7 @@ function GMinimap:AddBlip( params )
             b.indicateAlt = params.indicateAlt
             b.indicateAng = params.indicateAng
             b.lockIconAng = params.lockIconAng
+            b.teamID = params.teamID
 
             b.icon = params.icon
             b.alpha = params.alpha or 255
@@ -87,6 +89,7 @@ function GMinimap:AddBlip( params )
         indicateAlt = params.indicateAlt,
         indicateAng = params.indicateAng,
         lockIconAng = params.lockIconAng,
+        teamID = params.teamID,
 
         icon = params.icon,
         alpha = params.alpha or 255,
@@ -148,50 +151,52 @@ function GMinimap:DrawBlips( radar )
 
     while i > 0 do
         b = self.blips[i]
-
+    
         -- Convert the blip world position to pixels relative to the radar
-        x, y, yaw = radar:WorldToLocal( b.position, b.angle )
-
+        x, y, yaw = radar:WorldToLocal(b.position, b.angle)
+    
         -- How much higher/lower is this blip relative to the radar origin?
         zdiff = radar.origin.z - b.position.z
-
+    
         colorBlack.a = b.alpha
         b.color.a = b.alpha
 
-        if b.icon then
-            URLTexturedRectRotated( b.icon, x, y, diameter * b.scale, diameter * b.scale, b.lockIconAng and 0 or -yaw, b.color )
-        else
-            local r = radius * b.scale
-
-            SetColorMaterial()
-            DrawFilledCircle( r, x, y, colorBlack )
-            DrawFilledCircle( r * 0.8, x, y, b.color )
-        end
-
-        if blink and b.indicateAlt and Abs( zdiff ) > 200 then
-            SetMaterial( matArrow )
-            DrawTexturedRectRotated( x, y, altSize * b.scale, altSize * b.scale, zdiff > 0 and 180 or 0, colorBlack )
-        end
-
-        if b.indicateAng then
-            rad = Rad( yaw + 180 )
-            x = x - Sin( rad ) * angDist * b.scale
-            y = y + Cos( rad ) * angDist * b.scale
-
-            SetMaterial( matArrow )
-            DrawTexturedRectRotated( x, y, angSize * b.scale, angSize * b.scale, -yaw, colorBlack )
-        end
-
-        if b.parent then
-            if IsValid( b.parent ) then
-                b.position = b.parent:GetPos()
-                b.angle = GetHeading( b.parent )
+        if not (GAMEMODE_NAME == "zombiesurvival" and b.teamID and b.teamID ~= LocalPlayer():Team()) then
+            if b.icon then
+                URLTexturedRectRotated(b.icon, x, y, diameter * b.scale, diameter * b.scale, b.lockIconAng and 0 or -yaw, b.color)
             else
-                self.Print( "Blip #%d no longer has a valid parent, removing...", i )
-                table.remove( self.blips, i )
+                local r = radius * b.scale
+    
+                SetColorMaterial()
+                DrawFilledCircle(r, x, y, colorBlack)
+                DrawFilledCircle(r * 0.8, x, y, b.color)
+            end
+    
+            if blink and b.indicateAlt and Abs(zdiff) > 200 then
+                SetMaterial(matArrow)
+                DrawTexturedRectRotated(x, y, altSize * b.scale, altSize * b.scale, zdiff > 0 and 180 or 0, colorBlack)
+            end
+    
+            if b.indicateAng then
+                rad = Rad(yaw + 180)
+                x = x - Sin(rad) * angDist * b.scale
+                y = y + Cos(rad) * angDist * b.scale
+    
+                SetMaterial(matArrow)
+                DrawTexturedRectRotated(x, y, angSize * b.scale, angSize * b.scale, -yaw, colorBlack)
+            end
+    
+            if b.parent then
+                if IsValid(b.parent) then
+                    b.position = b.parent:GetPos()
+                    b.angle = GetHeading(b.parent)
+                else
+                    self.Print("Blip #%d no longer has a valid parent, removing...", i)
+                    table.remove(self.blips, i)
+                end
             end
         end
-
+    
         i = i - 1
-    end
+    end    
 end

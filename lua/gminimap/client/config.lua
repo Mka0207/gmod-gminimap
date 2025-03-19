@@ -254,7 +254,7 @@ function Config:SetupPanel( parent )
     end )
 
     -- Radar zoom
-    CreateSlider( scroll, L"zoom", self.zoom, 0.5, 1.5, 3, function( value )
+    CreateSlider( scroll, L"zoom", self.zoom, 0.5, 4, 3, function( value )
         self.zoom = value
         OnChangeConfig()
     end )
