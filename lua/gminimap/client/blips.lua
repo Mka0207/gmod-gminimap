@@ -51,6 +51,7 @@ function GMinimap:AddBlip( params )
     CheckOptionalType( params.indicateAng, "indicateAng", "boolean" )
     CheckOptionalType( params.lockIconAng, "lockIconAng", "boolean" )
     CheckOptionalType( params.teamID, "teamID", "number" )
+    CheckOptionalType( params.text, "text", "string" )
 
     CheckOptionalType( params.icon, "icon", "string" )
     CheckOptionalType( params.alpha, "alpha", "number" )
@@ -70,6 +71,7 @@ function GMinimap:AddBlip( params )
             b.indicateAng = params.indicateAng
             b.lockIconAng = params.lockIconAng
             b.teamID = params.teamID
+            b.text = params.text
 
             b.icon = params.icon
             b.alpha = params.alpha or 255
@@ -90,6 +92,7 @@ function GMinimap:AddBlip( params )
         indicateAng = params.indicateAng,
         lockIconAng = params.lockIconAng,
         teamID = params.teamID,
+        text = params.text,
 
         icon = params.icon,
         alpha = params.alpha or 255,
@@ -133,6 +136,7 @@ local SetColorMaterial = render.SetColorMaterial
 local DrawFilledCircle = SDrawUtils.DrawFilledCircle
 local DrawTexturedRectRotated = SDrawUtils.DrawTexturedRectRotated
 local URLTexturedRectRotated = SDrawUtils.URLTexturedRectRotated
+--local DrawText = SDrawUtils.DrawSurfaceText
 local Rad, Sin, Cos, Abs = math.rad, math.sin, math.cos, math.abs
 
 local matArrow = Material( "gminimap/heading.png", "smooth ignorez" )
@@ -195,6 +199,10 @@ function GMinimap:DrawBlips( radar )
                     table.remove(self.blips, i)
                 end
             end
+
+            --[[if b.text then
+                DrawText(b.text, x, y, diameter * b.scale, diameter * b.scale, b.color, "ZS3D2DFont2Big")
+            end]]
         end
     
         i = i - 1

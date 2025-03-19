@@ -173,7 +173,7 @@ function GMinimap:UpdateLayout()
         self.bar = nil
     end
 
-    local baseRatio = self.World.baseZoomRatio
+    local baseRatio = 3 --self.World.baseZoomRatio
 
     baseRatio = baseRatio + baseRatio * ( 1 - config.zoom )
 
