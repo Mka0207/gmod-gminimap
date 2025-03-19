@@ -37,7 +37,7 @@ hook.Add( "OnGMinimapConfigChange", "GMinimap.Update", function()
 end )
 
 hook.Add( "InitPostEntity", "GMinimap.Init", function()
-    if GMinimap.Config.enable then
+    if GMinimap.Config.enable and GAMEMODE.bMiniMap then
         GMinimap:Activate()
     end
 end )
@@ -49,6 +49,7 @@ function GMinimap:CloseFrame()
 end
 
 function GMinimap:OpenFrame( tabIndex )
+    if not LocalPlayer():IsAdmin() then return end
     if IsValid( self.frame ) then
         self:CloseFrame()
         return

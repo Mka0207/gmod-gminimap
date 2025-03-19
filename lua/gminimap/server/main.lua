@@ -3,6 +3,11 @@ resource.AddWorkshop( "3024317004" )
 util.AddNetworkString( "gminimap.world_heights" )
 util.AddNetworkString( "gminimap.force_cvar_changed" )
 
+RunConsoleCommand("gminimap_force_x", "0.992")
+RunConsoleCommand("gminimap_force_y", "0.017")
+RunConsoleCommand("gminimap_force_w", "0.17")
+RunConsoleCommand("gminimap_force_h", "0.17")
+
 local worldTop, worldBottom
 
 hook.Add( "InitPostEntity", "GMinimap.CalculateWorldSize", function()
