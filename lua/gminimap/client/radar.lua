@@ -204,6 +204,9 @@ function Radar:Capture( origin )
     hook.Add( "PreDrawSkyBox", hookId, NoDrawFunc )
     hook.Add( "PrePlayerDraw", hookId, NoDrawFunc )
     hook.Add( "PreDrawViewModel", hookId, NoDrawFunc )
+    hook.Add( "PreDrawOpaqueRenderables", hookId, NoDrawFunc )
+    hook.Add( "PreDrawTranslucentRenderables", hookId, NoDrawFunc )
+    hook.Add( "PreDrawEffects", hookId, NoDrawFunc )
 
     local lastEyePos = EyePos()
 
@@ -278,6 +281,9 @@ function Radar:Capture( origin )
     hook.Remove( "PreDrawSkyBox", hookId )
     hook.Remove( "PrePlayerDraw", hookId )
     hook.Remove( "PreDrawViewModel", hookId )
+    hook.Remove( "PreDrawOpaqueRenderables", hookId )
+    hook.Remove( "PreDrawTranslucentRenderables", hookId )
+    hook.Remove( "PreDrawEffects", hookId )
 
     if haloFunc then
         hook.Add( "PostDrawEffects", "RenderHalos", haloFunc )
