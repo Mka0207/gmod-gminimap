@@ -202,6 +202,10 @@ function GMinimap:UpdateLayout()
     else
         hook.Remove( "HUDShouldDraw", "GMinimap.HideHUDItems" )
     end
+
+    if GAMEMODE_NAME == "zombiesurvival" then
+        GAMEMODE.TopNotificationHUD:InvalidateLayout()
+    end
 end
 
 function GMinimap:OnButtonPressed( button )
@@ -248,36 +252,4 @@ function GMinimap:DrawMinimap( w, h )
     self.radar.rotation = Angle( 0, self.Config.lockRotation and 0 or EyeAngles().y, 0 )
     self.radar:Draw()
     self:DrawBlips( self.radar )
-
-    local b = self.bar
-    if not b then return end
-
-    local user = LocalPlayer()
-    if not IsValid( user ) then return end
-
-    local margin = self.Config.borderThickness
-    local x, y = margin, h - b.h - margin
-
-    -- Health bar
-    local health = Clamp( user:Health() / user:GetMaxHealth(), 0, 1 )
-    local lowHealth = health < 0.35
-
-    if lowHealth then
-        b.hlowColor.a = 255 * ( 1 - math.fmod( RealTime(), 0.7 ) )
-    end
-
-    SetColor( lowHealth and b.hlowColorBg or b.hColorBg )
-    DrawRect( x, y, b.w, b.h )
-
-    SetColor( lowHealth and b.hlowColor or b.hColor )
-    DrawRect( x, y, b.w * health, b.h )
-
-    -- Armor bar
-    local armor = Clamp( user:Armor() / user:GetMaxArmor(), 0, 1 )
-
-    SetColor( b.aColorBg )
-    DrawRect( x + b.w + 1, y, b.w, b.h )
-
-    SetColor( b.aColor )
-    DrawRect( x + b.w + 1, y, b.w * armor, b.h )
 end

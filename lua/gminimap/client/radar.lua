@@ -37,7 +37,7 @@ function GMinimap.CreateRadar()
         lastGridY = -1,
         lastCapturePos = Vector(),
         color = Color( 255, 255, 255 ),
-        voidColor = Color( 40, 40, 40 )
+        voidColor = Color( 0, 0, 0)
     }
 
     return setmetatable( instance, Radar )
