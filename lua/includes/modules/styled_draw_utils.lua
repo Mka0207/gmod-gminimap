@@ -46,7 +46,7 @@ do
 
         rt.texture = GetRenderTargetEx(
             "sdrawutils_rt_" .. id,
-            1024, 1024,
+            6144, 6144,
             RT_SIZE_LITERAL,
             MATERIAL_RT_DEPTH_SEPARATE,
             flags, 0,
