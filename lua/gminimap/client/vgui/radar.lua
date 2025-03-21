@@ -127,13 +127,40 @@ function Radar:OnMouseReleased()
 end
 
 function Radar:OnMouseWheeled( delta )
-    local ratio = math.Clamp( self.radar.ratio - delta * 1, self.minRatio, self.maxRatio )
+    local zoomIncrement = 0.4
 
-    self.radar.ratio = ratio
+    local targetRatio = math.Clamp( self.radar.ratio - delta * zoomIncrement, self.minRatio, self.maxRatio )
+
+    self.targetRatio = targetRatio
+    self.zoomStartTime = RealTime()
+
+    self.zoomDuration = 0.2
+
     self.radar:UpdateLayout()
 
     if self.slider then
-        self.slider:SetValue( ratio )
+        self.slider:SetValue( self.radar.ratio )
+    end
+end
+
+function Radar:Think()
+    if self.targetRatio and self.zoomStartTime then
+        local elapsedTime = RealTime() - self.zoomStartTime
+
+        local lerpFactor = math.Clamp( elapsedTime / self.zoomDuration, 0, 1 )
+
+        self.radar.ratio = Lerp( lerpFactor, self.radar.ratio, self.targetRatio )
+
+        self.radar:UpdateLayout()
+
+        if self.slider then
+            self.slider:SetValue( self.radar.ratio )
+        end
+        
+        if lerpFactor >= 1 then
+            self.targetRatio = nil
+            self.zoomStartTime = nil
+        end
     end
 end
 
