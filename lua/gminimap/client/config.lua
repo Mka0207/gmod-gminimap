@@ -5,7 +5,7 @@ GMinimap.Config = Config
 function Config:Reset()
     self.enable = true
     self.toggleKey = KEY_NONE
-    self.expandKey = KEY_N
+    self.expandKey = KEY_NONE
 
     self.zoom = 1
     self.pivotOffset = 0.75

@@ -9,7 +9,7 @@ function Radar:Init()
 
     local baseRatio = GMinimap.World.baseZoomRatio
 
-    self.minRatio = baseRatio * 0.2
+    self.minRatio = baseRatio * 0.05
     self.maxRatio = baseRatio
 
     self.radar = GMinimap.CreateRadar()
@@ -127,7 +127,7 @@ function Radar:OnMouseReleased()
 end
 
 function Radar:OnMouseWheeled( delta )
-    local ratio = math.Clamp( self.radar.ratio - delta * 5, self.minRatio, self.maxRatio )
+    local ratio = math.Clamp( self.radar.ratio - delta * 1, self.minRatio, self.maxRatio )
 
     self.radar.ratio = ratio
     self.radar:UpdateLayout()
