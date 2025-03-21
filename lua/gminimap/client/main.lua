@@ -49,7 +49,6 @@ function GMinimap:CloseFrame()
 end
 
 function GMinimap:OpenFrame( tabIndex )
-    if not LocalPlayer():IsAdmin() then return end
     if IsValid( self.frame ) then
         self:CloseFrame()
         return

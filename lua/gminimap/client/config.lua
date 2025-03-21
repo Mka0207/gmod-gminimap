@@ -5,7 +5,7 @@ GMinimap.Config = Config
 function Config:Reset()
     self.enable = true
     self.toggleKey = KEY_NONE
-    self.expandKey = KEY_N
+    self.expandKey = KEY_M
 
     self.zoom = 1
     self.pivotOffset = 0.75
@@ -340,51 +340,6 @@ function Config:SetupPanel( parent )
 
     CreateColorPicker( scroll, self.terrainColor, function( color )
         self.terrainColor = color
-        OnChangeConfig()
-    end )
-
-    ----- Health/armor properties
-    CreateHeader( L"health_armor", scroll, -50, 10, -50, 10 )
-
-    -- Toggle custom health/armor
-    CreateToggleButton( scroll, L"health_show_custom", self.showCustomHealth, function( checked )
-        self.showCustomHealth = checked
-        OnChangeConfig()
-    end )
-
-    -- Toggle hide default health/armor
-    CreateToggleButton( scroll, L"health_hide_default", self.hideDefaultHealth, function( checked )
-        self.hideDefaultHealth = checked
-        OnChangeConfig()
-    end )
-
-    -- Health/armor height
-    CreateSlider( scroll, L"health_height", self.healthHeight, 2, 32, 0, function( value )
-        self.healthHeight = value
-        OnChangeConfig()
-    end )
-
-    -- Health color
-    CreatePropertyLabel( L"health_color", scroll )
-
-    CreateColorPicker( scroll, self.healthColor, function( color )
-        self.healthColor = color
-        OnChangeConfig()
-    end )
-
-    -- Low health color
-    CreatePropertyLabel( L"low_health_color", scroll )
-
-    CreateColorPicker( scroll, self.lowhealthColor, function( color )
-        self.lowhealthColor = color
-        OnChangeConfig()
-    end )
-
-    -- Armor color
-    CreatePropertyLabel( L"armor_color", scroll )
-
-    CreateColorPicker( scroll, self.armorColor, function( color )
-        self.armorColor = color
         OnChangeConfig()
     end )
 end
