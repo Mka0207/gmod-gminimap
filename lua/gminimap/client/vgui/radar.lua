@@ -127,7 +127,7 @@ function Radar:OnMouseReleased()
 end
 
 function Radar:OnMouseWheeled( delta )
-    local zoomIncrement = 0.4
+    local zoomIncrement = 0.8
 
     local targetRatio = math.Clamp( self.radar.ratio - delta * zoomIncrement, self.minRatio, self.maxRatio )
 
