@@ -5,7 +5,7 @@ GMinimap.Config = Config
 function Config:Reset()
     self.enable = true
     self.toggleKey = KEY_NONE
-    self.expandKey = KEY_NONE
+    self.expandKey = KEY_N
 
     self.zoom = 1
     self.pivotOffset = 0.75
@@ -13,15 +13,15 @@ function Config:Reset()
     self.blipBaseSize = 0.015
 
     -- Sizes are relative to the screen height
-    self.width = 0.35
-    self.height = 0.12
+    self.width = 0.17
+    self.height = 0.17
 
     -- `x` and `y` are numbers between 0 and 1, and they
     -- take the width/height into consideration. This means that, for example,
     -- when y is 0.0, the top of the radar aligns with the top of the screen, whereas
     -- when y is 1.0, the bottom of the radar aligns with the bottom of the screen.
-    self.x = 0.5
-    self.y = 0.01
+    self.x = 0.992
+    self.y = 0.017
 
     self.borderColor = Color( 20, 20, 20, 255 )
     self.borderThickness = 2
