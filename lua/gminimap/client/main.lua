@@ -203,7 +203,9 @@ function GMinimap:UpdateLayout()
     end
 
     if GAMEMODE_NAME == "zombiesurvival" then
-        GAMEMODE.TopNotificationHUD:InvalidateLayout()
+        if GAMEMODE.TopNotificationHUD and GAMEMODE.TopNotificationHUD:IsValid() then
+            GAMEMODE.TopNotificationHUD:InvalidateLayout()
+        end
     end
 end
 
