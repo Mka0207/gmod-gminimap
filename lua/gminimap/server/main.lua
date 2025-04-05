@@ -1,5 +1,3 @@
-resource.AddWorkshop( "3024317004" )
-
 util.AddNetworkString( "gminimap.world_heights" )
 util.AddNetworkString( "gminimap.force_cvar_changed" )
 
