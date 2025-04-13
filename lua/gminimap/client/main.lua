@@ -219,9 +219,9 @@ function GMinimap:OnButtonPressed( button )
             self:Deactivate()
         end
 
-    elseif button == self.Config.expandKey then
+    --[[elseif button == self.Config.expandKey then
         self.isExpanded = not self.isExpanded
-        self:UpdateLayout()
+        self:UpdateLayout()]]
     end
 end
 
