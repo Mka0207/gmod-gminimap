@@ -143,6 +143,8 @@ local matArrow = Material( "gminimap/heading.png", "smooth ignorez" )
 local colorBlack = Color( 0, 0, 0, 255 )
 
 function GMinimap:DrawBlips( radar )
+    if not self.blips or #self.blips == 0 then return end
+    
     local diameter = ScrH() * self.Config.blipBaseSize
     local radius = diameter * 0.5
     local altSize = diameter * 0.8
